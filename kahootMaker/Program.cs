@@ -83,7 +83,7 @@ namespace kahootMaker
                 string itemToWrite = "";
                 foreach (var item in output)
                 {
-                    itemToWrite += item + ",";
+                    itemToWrite += item + "$";
                 }
                 itemToWrite += "";
                 file.WriteLine(itemToWrite);
