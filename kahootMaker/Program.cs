@@ -21,6 +21,19 @@ namespace kahootMaker
             }
             return finalTrim;
         }
+        public static string dealWithCommas(String input)
+        {
+            
+            const string quote = "\"\"";
+            string[] splitInput = input.Split(',');
+            string output ="";
+            for (int i = 0; i <( splitInput.Length -1); i++)
+            {
+                output += splitInput[i] + quote + ","  + quote;
+            }
+            output += splitInput[(splitInput.Length - 1)];
+            return (output);
+        }
         public static void makeCSV(List<string> itemsToInsert)
         {
             StreamWriter file = new StreamWriter(@"C:\Users\mrset\Desktop\TestOut.txt", append: true);
@@ -75,7 +88,7 @@ namespace kahootMaker
                 }
                 for (int ik = 0; ik < output.Length; ik++)
                 {
-                    if (output[ik] == "")
+                    if (output[ik] == null)
                     {
                         output[ik] = "NEED ANSWER";
                     }
@@ -83,7 +96,7 @@ namespace kahootMaker
                 string itemToWrite = "";
                 foreach (var item in output)
                 {
-                    itemToWrite += item + ",";
+                    itemToWrite += item + "|";
                 }
                 itemToWrite += "";
                 file.WriteLine(itemToWrite);
@@ -116,8 +129,21 @@ namespace kahootMaker
             List<string> ls = new List<string>();
             string[] lines = System.IO.File.ReadAllLines((@"C:\Users\mrset\Desktop\test.txt"));
             ls = trimList(lines);
-            Console.WriteLine(ls);
+            //Console.WriteLine(ls);
+
+            //Console.WriteLine("\u0022Hello,\u0022");
+            /*string[] lsGoodCopy = ls.ToArray();
+            for (int i = 0; i < lsGoodCopy.Length; i++)
+            {
+                lsGoodCopy[i] = dealWithCommas(lsGoodCopy[i]);
+            }
+            ls.Clear();
+            foreach (var item in lsGoodCopy)
+            {
+                ls.Add(item);
+            }*/
             makeCSV(ls);
+           //Console.WriteLine(dealWithCommas("l,x"));
            
         }
     }
