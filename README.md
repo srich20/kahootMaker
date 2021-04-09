@@ -3,12 +3,12 @@ This is a script I developed to aid in the creation of kahoots.
 
 ## System Requirements
 
-###You will need
+### You will need
 	-Excel (or other .xlsx file editing software)
 	- A text editor
 	-.net Development tools
 	- A copy of the kahoot spreadsheet template
-###Things you might need idk (maybe optional)
+### Things you might need idk (maybe optional)
 	- A word processor
 	- Visual Studio VSCode, or a IDE to run C# code
 	- Git Bash
