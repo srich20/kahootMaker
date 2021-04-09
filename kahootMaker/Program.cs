@@ -5,8 +5,11 @@ namespace kahootMaker
 {
     class Program
     {
-        public static List<string> trimList(string[] lines)
+        public const String inputFile = @"your input file here"; //YOU MUST INCLUDE FILE EXTENSION; IT CAN ONLY READ .txt files
+        public const String outputFile = @"your output file here";
+        public static List<string> trimList(List<string> inLines)
         {
+            string[] lines = inLines.ToArray();
             List<string> trim1 = new List<string>();
             List<string> finalTrim = new List<string>();
             for (int i = 0; i < lines.Length; i++)
@@ -20,6 +23,34 @@ namespace kahootMaker
                 finalTrim.Add(i.Trim(']'));
             }
             return finalTrim;
+        }
+        public static List<string> filterBrackets(string[] input )
+        {
+            List<string> filteredOutput = new List<string>();
+
+            foreach (var item in input)
+            {
+                filteredOutput.Add(item);
+            }
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (!filteredOutput[i].Contains("["))
+                {
+                    if (!filteredOutput[i].Contains(""))
+                    {
+                        filteredOutput.RemoveAt(i);
+                    }
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+
+                }
+            }
+            return filteredOutput;
         }
         public static string dealWithCommas(String input)
         {
@@ -36,7 +67,8 @@ namespace kahootMaker
         }
         public static void makeCSV(List<string> itemsToInsert)
         {
-            StreamWriter file = new StreamWriter(@"C:\Users\mrset\Desktop\TestOut.txt", append: true);
+            StreamWriter file = new StreamWriter(outputFile, append: false);
+          
             int k = 0;
             string[] qAndA = itemsToInsert.ToArray();
             for (int i = 1; i < 101; i++)
@@ -44,7 +76,7 @@ namespace kahootMaker
                 String[] output = new String[8];
                 output[0] = i.ToString();
                 bool validAnswer = true;
-                while (validAnswer && k < 264)
+                while (validAnswer && k < (qAndA.Length - 3))
                 {
                     if(qAndA[k] == "")
                     {
@@ -93,6 +125,13 @@ namespace kahootMaker
                         output[ik] = "NEED ANSWER";
                     }
                 }
+                if (output[0] == "NEED ANSWER")
+                {
+                    for (int ik = 0; ik < output.Length; ik++)
+                    {
+                        output[ik] = "";
+                    }
+                }
                 string itemToWrite = "";
                 foreach (var item in output)
                 {
@@ -124,26 +163,12 @@ namespace kahootMaker
         }
         static void Main(string[] args)
         {
-            //Console.WriteLine("Hello World!");
-            StreamReader reader = new StreamReader(@"C:\Users\mrset\Desktop\test.txt");
+            
             List<string> ls = new List<string>();
-            string[] lines = System.IO.File.ReadAllLines((@"C:\Users\mrset\Desktop\test.txt"));
-            ls = trimList(lines);
-            //Console.WriteLine(ls);
-
-            //Console.WriteLine("\u0022Hello,\u0022");
-            /*string[] lsGoodCopy = ls.ToArray();
-            for (int i = 0; i < lsGoodCopy.Length; i++)
-            {
-                lsGoodCopy[i] = dealWithCommas(lsGoodCopy[i]);
-            }
-            ls.Clear();
-            foreach (var item in lsGoodCopy)
-            {
-                ls.Add(item);
-            }*/
+            string[] lines = System.IO.File.ReadAllLines((inputFile));
+            ls = filterBrackets(lines); //This doesn't work
+            ls = trimList(ls);
             makeCSV(ls);
-           //Console.WriteLine(dealWithCommas("l,x"));
            
         }
     }
